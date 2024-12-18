@@ -1,22 +1,22 @@
 
-å¯ä»¥åœ¨é¡¹ç›®ç›®å½•ä¸­æ–°å»ºä¸€ä¸ªbuildæ–‡ä»¶å¤¹
+¿ÉÒÔÔÚÏîÄ¿Ä¿Â¼ÖĞĞÂ½¨Ò»¸öbuildÎÄ¼ş¼Ğ
 
 ```cmake
 mkdir build
 cd build
 ```
 
-ç„¶ååœ¨å…¶ä¸­æ„å»ºä¸Šå±‚ç›®å½•ä¸­çš„é¡¹ç›®
+È»ºóÔÚÆäÖĞ¹¹½¨ÉÏ²ãÄ¿Â¼ÖĞµÄÏîÄ¿
 
 ```sh
 cmake .. -G "MinGW Makefiles"
 mingw32-make
 ```
 
-æ³¨æ„ä½¿ç”¨çš„æ˜¯ GB 2312 ç¼–ç 
+×¢ÒâÊ¹ÓÃµÄÊÇ GB 2312 ±àÂë
 
-ä¸¤å¤„è¦æ”¹ä¸ºè‡ªå·±çš„åœ°å€
-1. main.cpp / 10è¡Œ / String path = "D:/Github/LPR/pictures/car.bmp";//å›¾ç‰‡è·¯å¾„
-2. LPR.cpp / 82è¡Œ / stream << "D:/Github/LPR/pictures/num_";
+Á½´¦Òª¸ÄÎª×Ô¼ºµÄµØÖ·
+1. main.cpp / 10ĞĞ / String path = "D:/Github/LPR/pictures/car.bmp";//Í¼Æ¬Â·¾¶
+2. LPR.cpp / 82ĞĞ / stream << "D:/Github/LPR/pictures/num_";
 
-openCVç‰ˆæœ¬æ˜¯ 4.5.5
+openCV°æ±¾ÊÇ 4.5.5
