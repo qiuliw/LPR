@@ -1,5 +1,6 @@
-#include "stdafx.h"
 #include "LPR.h"
+
+
 
 bool comp(RotatedRect a, RotatedRect b)
 {
@@ -73,12 +74,12 @@ void LPR::load(String path)
 		cout << "错误的路径!" << endl;
 /*		exit(-1);*/
 	}
-	cvtColor(srcImage, markedImage, CV_16S);
+	cvtColor(srcImage, markedImage, COLOR_BGR2GRAY);
 	//载入数字图像
 	for (int i = 0; i < template_len; i++)
 	{
 		stringstream stream;
-		stream << "pictures/num_";
+		stream << "D:/Github/LPR/pictures/num_";
 		stream << i;
 		stream << ".bmp";
 		String name = stream.str();
@@ -87,7 +88,7 @@ void LPR::load(String path)
 		{
 			cout << "未能读取" << name << endl;
 		}
-		threshold(NUM[i], NUM[i], 0, 255, CV_THRESH_BINARY);
+		threshold(NUM[i], NUM[i], 0, 255, THRESH_BINARY);
 	}
 }
 
@@ -129,10 +130,10 @@ void LPR::sobel()
 void LPR::thresholding()
 {
 	//颜色空间转换函数
-	cvtColor(sobelImage, binImage, CV_RGB2GRAY);
+	cvtColor(sobelImage, binImage, COLOR_BGR2GRAY);
 
 	//threshold 方法是通过遍历灰度图中点，将图像信息二值化，处理过后的图片只有二种色值。
-	threshold(binImage, binImage, 180, 255, CV_THRESH_BINARY);
+	threshold(binImage, binImage, 180, 255, THRESH_BINARY);
 /*	imshow("【效果图】二值化处理", binImage);*/
 }
 
@@ -164,8 +165,8 @@ void LPR::getMaxArea()
 	vector< vector< Point> > contours;
 	findContours(closeImage,
 		contours, // a vector of contours
-		CV_RETR_EXTERNAL, // 提取外部轮廓
-		CV_CHAIN_APPROX_NONE); // all pixels of each contours
+		RETR_EXTERNAL, // 提取外部轮廓
+		CHAIN_APPROX_NONE); // all pixels of each contours
 	int max = 0;
 	for (size_t i = 0; i < contours.size(); i++)
 	{
@@ -198,8 +199,8 @@ void LPR::affine()
 	//仿射变换
 	Point2f srcTri[3];
 	Point2f dstTri[3];
-	Mat rot_mat(2, 3, CV_32FC1);
-	Mat warp_mat(2, 3, CV_32FC1);
+	Mat rot_mat(2, 3, CV_32F);
+	Mat warp_mat(2, 3, CV_32F);
 
 	//设置三个点来计算仿射变换
 	//左上
@@ -256,7 +257,7 @@ void LPR::affine()
 void LPR::reThreshold()
 {
 	//再次二值化
-	threshold(plateImage, reBinImage, 180, 255, CV_THRESH_BINARY_INV);
+	threshold(plateImage, reBinImage, 180, 255, THRESH_BINARY_INV);
 /*	imshow("再次二值化", reBinImage);*/
 }
 
@@ -266,7 +267,7 @@ void LPR::recognition()
 	cvtColor(reBinImage, reBinImage, COLOR_BGR2GRAY);
 	cvtColor(plateImage, charMarkedImage, CV_16S);
 
-	threshold(reBinImage, reBinImage, 48, 255, CV_THRESH_BINARY_INV);
+	threshold(reBinImage, reBinImage, 48, 255, THRESH_BINARY_INV);
 
 	//运算操作
 	Mat ele = getStructuringElement(MORPH_RECT, Size(3, 5));//getStructuringElement返回值定义内核矩阵
@@ -275,7 +276,7 @@ void LPR::recognition()
 
 	vector<vector<Point>> contours;
 	vector<Vec4i> hierarchy;
-	findContours(reBinImage, contours, hierarchy, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_NONE);
+	findContours(reBinImage, contours, hierarchy, RETR_EXTERNAL, CHAIN_APPROX_NONE);
 
 	vector<RotatedRect> RectArr(license_len);
 	int a = 0;
@@ -296,7 +297,7 @@ void LPR::recognition()
 
 	imshow("轮廓", charMarkedImage);
 
-	Mat warp_mat(2, 3, CV_32FC1);
+	Mat warp_mat(2, 3, CV_32F);
 	sort(RectArr.begin(), RectArr.end(), comp);//对轮廓从左到右排序
 
 	cout << "车牌：";
@@ -322,7 +323,7 @@ void LPR::recognition()
 // 		String name = stream.str();
 
 		//二值化
-		threshold(charMat[i], charMat[i], 150, 255, CV_THRESH_BINARY_INV);
+		threshold(charMat[i], charMat[i], 150, 255, THRESH_BINARY_INV);
 
 		float maxRate = 0, tempRate = 0;
 		int mostLike;

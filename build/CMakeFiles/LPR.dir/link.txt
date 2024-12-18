@@ -1,0 +1,3 @@
+D:\Software\CMake\bin\cmake.exe -E rm -f CMakeFiles\LPR.dir/objects.a
+D:\Software\MinGW64-8.1\bin\ar.exe qc CMakeFiles\LPR.dir/objects.a @CMakeFiles\LPR.dir\objects1.rsp
+D:\Software\MinGW64-8.1\bin\c++.exe -Wl,--whole-archive CMakeFiles\LPR.dir/objects.a -Wl,--no-whole-archive -o LPR.exe -Wl,--out-implib,libLPR.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\LPR.dir\linkLibs.rsp

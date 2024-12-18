@@ -1,0 +1,3 @@
+D:/Github/LPR/build/CMakeFiles/LPR.dir
+D:/Github/LPR/build/CMakeFiles/edit_cache.dir
+D:/Github/LPR/build/CMakeFiles/rebuild_cache.dir
